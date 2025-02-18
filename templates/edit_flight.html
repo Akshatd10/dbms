@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Flight</title>
+    <style>
+        /* General body styles */
+        body {
+    font-family: Arial, sans-serif;
+    background: url('/static/login.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+        /* Main container for the form */
+        .container {
+            background-color: #ffffff;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: left;
+        }
+
+        /* Heading styles */
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Label and input styles */
+        label {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        input[type="text"], input[type="number"], input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        /* Button styles */
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Back Link styling */
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form and button container */
+        .form-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Flight Details</h1>
+        <form method="POST">
+            <div class="form-container">
+                <label for="airline">Airline:</label>
+                <input type="text" id="airline" name="airline" value="{{ flight.airline }}" required><br><br>
+
+                <label for="source">Source:</label>
+                <input type="text" id="source" name="source" value="{{ flight.source }}" required><br><br>
+
+                <label for="destination">Destination:</label>
+                <input type="text" id="destination" name="destination" value="{{ flight.destination }}" required><br><br>
+
+                <label for="departure_time">Departure Time:</label>
+                <input type="datetime-local" id="departure_time" name="departure_time" value="{{ flight.departure_time }}" required><br><br>
+
+                <label for="arrival_time">Arrival Time:</label>
+                <input type="datetime-local" id="arrival_time" name="arrival_time" value="{{ flight.arrival_time }}" required><br><br>
+
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" value="{{ flight.price }}" required><br><br>
+
+                <label for="seats_available">Seats Available:</label>
+                <input type="number" id="seats_available" name="seats_available" value="{{ flight.seats_available }}" required><br><br>
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <a href="{{ url_for('admin_flights') }}">Back to All Flights</a>
+    </div>
+</body>
+</html>

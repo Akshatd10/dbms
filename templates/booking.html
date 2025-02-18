@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Flight</title>
+    <style>
+        /* General body styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/static/login.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container for the table */
+        .container {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Links for navigation */
+        .back-links {
+            margin-top: 20px;
+        }
+
+        /* Button style for back links */
+        .btn {
+            background-color: #ff6347;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #ff4500;
+        }
+
+        /* Section for recommended flights */
+        .recommended-flights {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <h1>Available Flights</h1>
+        
+        <!-- Recommended Flights Section -->
+        <div class="recommended-flights">
+            <h2>Recommended Flights for You</h2>
+            {% if recommended_flights %}
+                <table>
+                    <tr>
+                        <th>Airline</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Seats</th>
+                        <th>Price</th>
+                        <th>Book</th>
+                    </tr>
+                    {% for flight in recommended_flights %}
+                    <tr>
+                        <td>{{ flight['airline'] }}</td>
+                        <td>{{ flight['source'] }}</td>
+                        <td>{{ flight['destination'] }}</td>
+                        <td>{{ flight['departure_time'] }}</td>
+                        <td>{{ flight['arrival_time'] }}</td>
+                        <td>{{ flight['seats_available'] }}</td>
+                        <td>{{ flight['price'] }}</td>
+                        <td><a href="/book_flight/{{ flight['flight_id'] }}">Book</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>No recommended flights available at this time.</p>
+            {% endif %}
+        </div>
+
+        <!-- Available Flights Section -->
+        <h2>All Available Flights</h2>
+        <table>
+            <tr>
+                <th>Airline</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Seats</th>
+                <th>Price</th>
+                <th>Book</th>
+            </tr>
+            {% for flight in flights %}
+            <tr>
+                <td>{{ flight['airline'] }}</td>
+                <td>{{ flight['source'] }}</td>
+                <td>{{ flight['destination'] }}</td>
+                <td>{{ flight['departure_time'] }}</td>
+                <td>{{ flight['arrival_time'] }}</td>
+                <td>{{ flight['seats_available'] }}</td>
+                <td>{{ flight['price'] }}</td>
+                <td><a href="/book_flight/{{ flight['flight_id'] }}">Book</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="back-links">
+            <a href="javascript:history.back()">🔙 Go Back</a><br>
+            <a href="{{ url_for('dashboard') }}" class="btn">🏠 Go to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

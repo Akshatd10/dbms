@@ -1,0 +1,66 @@
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    background: url('../static/hehe.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container styling */
+.container {
+    
+    width: 80%;
+    max-width: 900px;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+}
+
+/* Heading styles */
+h1 {
+    font-size: 3rem;
+    color: #0b0b0b;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #030303;
+    margin-bottom: 30px;
+}
+
+/* Paragraph styles */
+p {
+    font-size: 1.2rem;
+    color: #000000;
+    margin: 10px 0;
+}
+
+/* Button styles */
+.btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Footer styles */
+.footer {
+    margin-top: 30px;
+    font-size: 1rem;
+    color: #aaa;
+}

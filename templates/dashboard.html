@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* General body styles */
+        body {
+    font-family: Arial, sans-serif;
+    background: url('/static/dashboard.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+        /* Container for the dashboard */
+        .container {
+            background-color: #ffffff;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Header styles */
+        h2 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #555;
+            font-size: 1.8rem;
+            margin-top: 20px;
+        }
+
+        /* Paragraph styles */
+        p {
+            font-size: 1.2rem;
+            color: #777;
+            margin: 10px 0;
+        }
+
+        /* Link styles */
+        a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Button for logout and go back */
+        .btn {
+            background-color: #ff6347;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #ff4500;
+        }
+
+        /* Flex container for managing links */
+        .links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        /* Additional styling for the role check */
+        .role-check {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-check p {
+            font-size: 1.1rem;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ session['username'] }}!</h2>
+        <p>Your role: {{ session['role'] }}</p>
+
+        <div class="role-check">
+            {% if session['role'] == 'user' %}
+                <h3>As a User:</h3>
+                <div class="links">
+                    <a href="{{ url_for('booking') }}">✈️ Book a Flight</a>
+                    <a href="{{ url_for('my_bookings') }}">📖 Show My Bookings</a>
+                </div>
+            {% elif session['role'] == 'admin' %}
+                <h3>As an Admin:</h3>
+                <div class="links">
+                    <a href="{{ url_for('admin_flights') }}">🛫 View All Flights</a>
+                    <a href="{{ url_for('admin_users_with_bookings') }}">👥 View Users with Bookings</a>
+                    <a href="{{ url_for('admin_dashboard') }}">📊 Admin Dashboard</a>
+                </div>
+            {% else %}
+                <p>You do not have access to this content.</p>
+            {% endif %}
+        </div>
+
+        <a href="javascript:history.back()" class="btn">🔙 Go Back</a>
+        <a href="{{ url_for('logout') }}" class="btn">🚪 Logout</a>
+    </div>
+</body>
+</html>

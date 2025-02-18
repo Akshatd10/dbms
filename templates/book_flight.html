@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Booking</title>
+    <style>
+        /* General body styles */
+        body {
+    font-family: Arial, sans-serif;
+    background: url('/static/login.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+        /* Main container */
+        .container {
+            background-color: #ffffff;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: left;
+        }
+
+        /* Heading styles */
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Info section */
+        p {
+            font-size: 1rem;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Links styling */
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirm Your Booking</h1>
+        <p><strong>Airline:</strong> {{ flight['airline'] }}</p>
+        <p><strong>From:</strong> {{ flight['source'] }}</p>
+        <p><strong>To:</strong> {{ flight['destination'] }}</p>
+        <p><strong>Departure:</strong> {{ flight['departure_time'] }}</p>
+        <p><strong>Arrival:</strong> {{ flight['arrival_time'] }}</p>
+        <p><strong>Seats Available:</strong> {{ flight['seats_available'] }}</p>
+        <p><strong>Price:</strong> ₹{{ flight['price'] }}</p>
+
+        <form method="post">
+            <button type="submit">Proceed to Payment</button>
+        </form>
+
+        <a href="{{ url_for('booking') }}">Cancel</a>
+        <br><br>
+        <a href="javascript:history.back()">🔙 Go Back</a>
+        <br><br>
+        <a href="{{ url_for('dashboard') }}">🏠 Go to Dashboard</a>
+    </div>
+</body>
+</html>

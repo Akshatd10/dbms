@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <style>
+        /* General body styles */
+        body {
+    font-family: Arial, sans-serif;
+    background: url('/static/login.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+        /* Container for the table */
+        .container {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #ff6347;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #ff4500;
+        }
+
+        .status-cancelled {
+            color: #888;
+            font-weight: bold;
+        }
+
+        /* Links styling */
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-links {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Bookings</h1>
+        <table>
+            <tr>
+                <th>Booking ID</th>
+                <th>Airline</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Cancel</th>
+            </tr>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking['booking_id'] }}</td>
+                <td>{{ booking['airline'] }}</td>
+                <td>{{ booking['source'] }}</td>
+                <td>{{ booking['destination'] }}</td>
+                <td>{{ booking['departure_time'] }}</td>
+                <td>{{ booking['arrival_time'] }}</td>
+                <td>{{ booking['price'] }}</td>
+                <td>{{ booking['status'] }}</td>
+                <td>
+                    {% if booking['status'] != 'Cancelled' %}
+                        <form action="{{ url_for('cancel_booking', booking_id=booking['booking_id']) }}" method="POST">
+                            <button type="submit">Cancel</button>
+                        </form>
+                    {% else %}
+                        <p class="status-cancelled">Cancelled</p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="back-links">
+            <a href="javascript:history.back()">🔙 Go Back</a><br>
+            <a href="{{ url_for('dashboard') }}">🏠 Go to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

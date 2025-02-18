@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Airline</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Our Airline</h1>
+        <h2>Your Journey Begins Here</h2>
+        <div class="role-check">
+            {% if 'loggedin' in session %}
+                <p>Hello, {{ session['username'] }}! You are logged in as a {{ session['role'] }}.</p>
+                {% if session['role'] == 'user' %}
+                    <p>As a user, you can book flights and manage your bookings.</p>
+                    <a href="{{ url_for('dashboard') }}" class="btn">Go to Dashboard</a>
+                {% elif session['role'] == 'admin' %}
+                    <p>As an admin, you can manage flights, users, and more.</p>
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn">Go to Admin Dashboard</a>
+                {% endif %}
+            {% else %}
+                <p>You are not logged in. Please log in to access your dashboard.</p>
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+                <br>
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+            {% endif %}
+        </div>
+
+        <div class="footer">
+            <p>Contact Us: support@ourairline.com | © 2025 Our Airline</p>
+        </div>
+    </div>
+</body>
+</html>
