@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book a Flight</title>
+    <title>Flight Booking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        /* General body styles */
+        /* Background Styling */
         body {
             font-family: Arial, sans-serif;
-            background: url('/static/login.jpg') no-repeat center center fixed;
+            background: url('/static/dashboard.jpg') no-repeat center center fixed;
             background-size: cover;
             margin: 0;
             padding: 0;
@@ -18,149 +19,125 @@
             height: 100vh;
         }
 
-        /* Container for the table */
+        /* Container Styling */
         .container {
-            background-color: #ffffff;
-            width: 90%;
-            max-width: 1000px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
         }
 
-        /* Table styles */
-        table {
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Input Fields */
+        .form-control {
+            border-radius: 6px;
+        }
+
+        /* Buttons */
+        .btn-primary {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
             padding: 10px;
+            font-size: 1.1rem;
+            background-color: #007bff;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Flight List */
+        .flight-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+
+        .no-flights {
             text-align: center;
-            border: 1px solid #ddd;
+            color: red;
+            font-size: 1.1rem;
         }
 
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        td {
-            background-color: #f9f9f9;
-        }
-
-        a {
-            text-decoration: none;
+        /* Links */
+        .back-link {
+            text-align: center;
+            display: block;
+            margin-top: 15px;
             color: #007bff;
-            font-weight: bold;
-            padding: 5px 10px;
-            border: 1px solid #007bff;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        a:hover {
-            background-color: #007bff;
-            color: white;
-        }
-
-        /* Links for navigation */
-        .back-links {
-            margin-top: 20px;
-        }
-
-        /* Button style for back links */
-        .btn {
-            background-color: #ff6347;
-            padding: 10px 20px;
-            border-radius: 5px;
             text-decoration: none;
-            color: white;
-            font-weight: bold;
-            margin-top: 20px;
         }
 
-        .btn:hover {
-            background-color: #ff4500;
-        }
-
-        /* Section for recommended flights */
-        .recommended-flights {
-            margin-top: 30px;
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        
-        <h1>Available Flights</h1>
-        
-        <!-- Recommended Flights Section -->
-        <div class="recommended-flights">
-            <h2>Recommended Flights for You</h2>
-            {% if recommended_flights %}
-                <table>
-                    <tr>
-                        <th>Airline</th>
-                        <th>Source</th>
-                        <th>Destination</th>
-                        <th>Departure</th>
-                        <th>Arrival</th>
-                        <th>Seats</th>
-                        <th>Price</th>
-                        <th>Book</th>
-                    </tr>
-                    {% for flight in recommended_flights %}
-                    <tr>
-                        <td>{{ flight['airline'] }}</td>
-                        <td>{{ flight['source'] }}</td>
-                        <td>{{ flight['destination'] }}</td>
-                        <td>{{ flight['departure_time'] }}</td>
-                        <td>{{ flight['arrival_time'] }}</td>
-                        <td>{{ flight['seats_available'] }}</td>
-                        <td>{{ flight['price'] }}</td>
-                        <td><a href="/book_flight/{{ flight['flight_id'] }}">Book</a></td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <p>No recommended flights available at this time.</p>
-            {% endif %}
+
+<div class="container">
+    <h2>Search for Flights</h2>
+
+    <!-- Filters Form -->
+    <form method="POST">
+        <div class="mb-3">
+            <label for="source" class="form-label">From</label>
+            <select name="source" id="source" class="form-control" required>
+                <option value="">Select Source</option>
+                {% for src in sources %}
+                    <option value="{{ src }}">{{ src }}</option>
+                {% endfor %}
+            </select>
         </div>
 
-        <!-- Available Flights Section -->
-        <h2>All Available Flights</h2>
-        <table>
-            <tr>
-                <th>Airline</th>
-                <th>Source</th>
-                <th>Destination</th>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Seats</th>
-                <th>Price</th>
-                <th>Book</th>
-            </tr>
-            {% for flight in flights %}
-            <tr>
-                <td>{{ flight['airline'] }}</td>
-                <td>{{ flight['source'] }}</td>
-                <td>{{ flight['destination'] }}</td>
-                <td>{{ flight['departure_time'] }}</td>
-                <td>{{ flight['arrival_time'] }}</td>
-                <td>{{ flight['seats_available'] }}</td>
-                <td>{{ flight['price'] }}</td>
-                <td><a href="/book_flight/{{ flight['flight_id'] }}">Book</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-
-        <div class="back-links">
-            <a href="javascript:history.back()">🔙 Go Back</a><br>
-            <a href="{{ url_for('dashboard') }}" class="btn">🏠 Go to Dashboard</a>
+        <div class="mb-3">
+            <label for="destination" class="form-label">To</label>
+            <select name="destination" id="destination" class="form-control" required>
+                <option value="">Select Destination</option>
+                {% for dest in destinations %}
+                    <option value="{{ dest }}">{{ dest }}</option>
+                {% endfor %}
+            </select>
         </div>
-    </div>
+
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" name="date" id="date" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search Flights</button>
+    </form>
+
+    <br>
+
+    <!-- Display Available Flights -->
+    <h3>Available Flights</h3>
+    {% if flights %}
+        {% for flight in flights %}
+            <div class="flight-card">
+                <p><strong>Airline:</strong> {{ flight['airline'] }}</p>
+                <p><strong>Departure:</strong> {{ flight['departure_time'] }}</p>
+                <p><strong>Arrival:</strong> {{ flight['arrival_time'] }}</p>
+                <p><strong>Price:</strong> ₹{{ flight['price'] }}</p>
+                <a href="{{ url_for('book_flight', flight_id=flight['flight_id']) }}" class="btn btn-success">Book Now</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-flights">No flights available. Try different filters.</p>
+    {% endif %}
+
+    <a href="javascript:history.back()" class="back-link">🔙 Go Back</a>
+</div>
+
 </body>
 </html>

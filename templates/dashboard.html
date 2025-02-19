@@ -114,6 +114,7 @@
                 <div class="links">
                     <a href="{{ url_for('booking') }}">✈️ Book a Flight</a>
                     <a href="{{ url_for('my_bookings') }}">📖 Show My Bookings</a>
+                    <a href="{{ url_for('track_flight') }}" class="btn btn-primary">Track My Flight</a>
                 </div>
             {% elif session['role'] == 'admin' %}
                 <h3>As an Admin:</h3>
